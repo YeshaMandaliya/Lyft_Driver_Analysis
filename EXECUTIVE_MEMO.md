@@ -9,9 +9,9 @@
  
 ## Bottom line
  
-Lyft should run a **small, controlled test (a pilot)** of early retention outreach, starting with drivers who were **active on 4–7 of their first 14 days** - about a third of new drivers, but nearly half of everyone who later goes quiet. Lyft should **not** roll out a company-wide targeting program yet. The data reliably tells us *who is at risk of going quiet*; only a controlled test can tell us *whether outreach actually changes their behavior* — and *whether focusing on a group beats simply contacting everyone*.
+Lyft should run a **small, controlled test (a pilot)** of early retention outreach, starting with drivers who were **active on 4–7 of their first 14 days** - about a third of new drivers, but nearly half of everyone who later goes quiet. Lyft should **not** roll out a company-wide targeting program yet. The data reliably tells us *who is at risk of going quiet*; only a controlled test can tell us *whether outreach actually changes their behavior* - and *whether focusing on a group beats simply contacting everyone*.
  
-The good news for execution: two simple signals - **how many days a driver was active in their first two weeks**, and **how long they've been idle by day 14** — predict future inactivity just as well as a complex 11-variable model. So the recommendation is a simple, explainable rule plus a clean experiment, not a black box.
+The good news for execution: two simple signals - **how many days a driver was active in their first two weeks**, and **how long they've been idle by day 14** - predict future inactivity just as well as a complex 11-variable model. So the recommendation is a simple, explainable rule plus a clean experiment, not a black box.
  
 ---
  
@@ -19,7 +19,7 @@ The good news for execution: two simple signals - **how many days a driver was a
  
 Reaching out to new drivers takes real time and money, so Lyft can't treat every driver the same way. If early behavior clearly flags who is likely to drift away, Lyft can focus its limited attention where it matters most.
  
-The honest boundary: this data has no record of anyone actually being contacted, no costs, and no rider side. So it can tell us **where to focus and what to test** — but it *cannot* prove that outreach works, saves rides, or pays for itself. This memo stays inside that line.
+The honest boundary: this data has no record of anyone actually being contacted, no costs, and no rider side. So it can tell us **where to focus and what to test** - but it *cannot* prove that outreach works, saves rides, or pays for itself. This memo stays inside that line.
  
 ---
  
