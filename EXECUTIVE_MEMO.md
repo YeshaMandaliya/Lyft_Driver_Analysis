@@ -9,9 +9,9 @@
  
 ## Bottom line
  
-Lyft should run a **small, controlled test (a pilot)** of early retention outreach, starting with drivers who were **active on 4–7 of their first 14 days** - about a third of new drivers, but nearly half of everyone who later goes quiet. Lyft should **not** roll out a company-wide targeting program yet. The data reliably tells us *who is at risk of going quiet*; only a controlled test can tell us *whether outreach actually changes their behavior* - and *whether focusing on a group beats simply contacting everyone*.
+Lyft should run a **small, controlled test (a pilot)** of early retention outreach, starting with drivers who were **active on 4–7 of their first 14 days**, about a third of new drivers, but nearly half of everyone who later goes quiet. Lyft should **not** roll out a company-wide targeting program yet. The data reliably tells us *who is at risk of going quiet*; only a controlled test can tell us *whether outreach actually changes their behavior*, and *whether focusing on a group beats simply contacting everyone*.
  
-The good news for execution: two simple signals - **how many days a driver was active in their first two weeks**, and **how long they've been idle by day 14** - predict future inactivity just as well as a complex 11-variable model. So the recommendation is a simple, explainable rule plus a clean experiment, not a black box.
+The good news for execution: two simple signals - **how many days a driver was active in their first two weeks**, and **how long they've been idle by day 14** predict future inactivity just as well as a complex 11-variable model. So the recommendation is a simple, explainable rule plus a clean experiment, not a black box.
  
 ---
  
@@ -19,7 +19,7 @@ The good news for execution: two simple signals - **how many days a driver was a
  
 Reaching out to new drivers takes real time and money, so Lyft can't treat every driver the same way. If early behavior clearly flags who is likely to drift away, Lyft can focus its limited attention where it matters most.
  
-The honest boundary: this data has no record of anyone actually being contacted, no costs, and no rider side. So it can tell us **where to focus and what to test** - but it *cannot* prove that outreach works, saves rides, or pays for itself. This memo stays inside that line.
+The honest boundary: this data has no record of anyone actually being contacted, no costs, and no rider side. So it can tell us **where to focus and what to test**, but it *cannot* prove that outreach works, saves rides, or pays for itself. This memo stays inside that line.
  
 ---
  
@@ -38,7 +38,7 @@ Grouping drivers by how many of their first 14 days they were active, the chance
 *Risk of going quiet within 28 days, by how many days a driver was active in their first two weeks.*
  
 **3. This risk flag is concentrated and dependable.**
-Drivers active on **7 or fewer** of their first 14 days are 44% of drivers but account for **70%** of everyone who goes quiet. That gap holds in every weekly group of new drivers we looked at — the at-risk group is consistently 2–6× more likely to go quiet.
+Drivers active on **7 or fewer** of their first 14 days are 44% of drivers but account for **70%** of everyone who goes quiet. That gap holds in every weekly group of new drivers we looked at - the at-risk group is consistently 2–6× more likely to go quiet.
  
 ![Risk separation across onboarding groups](chart5.png)
 *In all seven weekly onboarding groups, the "7-or-fewer-active-days" group is far more likely to go quiet than everyone else.*
@@ -64,9 +64,9 @@ One honest caveat: 0.71 is a *useful* flag, not a crystal ball. It points to the
 **The capacity view (how to spend limited outreach):** if Lyft can only reach a slice of drivers, focusing on the riskiest 30% covers about half of all the drivers who go quiet.
  
 ![Capacity curve](chart4.png)
-*Reaching the riskiest 30% of drivers covers 51% of the people who later go quiet — but note those drivers represent only ~11% of early rides, so risk and current contribution don't line up. There's no single "right" cutoff without cost and capacity numbers.*
+*Reaching the riskiest 30% of drivers covers 51% of the people who later go quiet, but note those drivers represent only ~11% of early rides, so risk and current contribution don't line up. There's no single "right" cutoff without cost and capacity numbers.*
  
-**In the meantime (optional, low-cost only):** cheap, reversible outreach can start with the 4–7-active-day drivers who are already idle 3+ days by day 14 (the highest-risk slice, ~39% go quiet). Treat this as a temporary rule of thumb — not a reason to spend on incentives.
+**In the meantime (optional, low-cost only):** cheap, reversible outreach can start with the 4–7-active-day drivers who are already idle 3+ days by day 14 (the highest-risk slice, ~39% go quiet). Treat this as a temporary rule of thumb, not a reason to spend on incentives.
  
 **Scale only if the test proves it's worth it.** A 10-point drop in inactivity (from 26% to 16%) would be a big result. Being statistically real isn't enough — the effect has to be big enough to justify the cost.
  
@@ -82,8 +82,8 @@ One honest caveat: 0.71 is a *useful* flag, not a crystal ball. It points to the
  
 ## What we need from the business to finalize the test
  
-A specific outreach action to test; how many eligible drivers there are now; how many we can actually reach; cost per driver contacted; the value of keeping a driver active; the smallest result worth acting on; and what "normal" contact already happens today. With those, we finalize the test size and launch. If those numbers aren't available, the right move is to stop at "run the test" — not to make them up.
+A specific outreach action to test; how many eligible drivers there are now; how many we can actually reach; cost per driver contacted; the value of keeping a driver active; the smallest result worth acting on; and what "normal" contact already happens today. With those, we finalize the test size and launch. If those numbers aren't available, the right move is to stop at "run the test" - not to make them up.
  
 ---
  
-*Note: any "ride value" figures in the supporting analysis are estimated fares from the published rate card — never actual driver take-home pay. Full details, checks, and sensitivity analyses are in the accompanying notebook.*
+*Note: any "ride value" figures in the supporting analysis are estimated fares from the published rate card - never actual driver take-home pay. Full details, checks, and sensitivity analyses are in the accompanying notebook.*
