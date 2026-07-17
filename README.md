@@ -108,7 +108,7 @@ The 4-7-day segment combines elevated risk with evidence of meaningful initial p
 
 ### 3. Nine additional variables add only 0.003 discrimination
 
-![Model comparison](images/chart3.png)
+![Model comparison](chart3.png)
 
 | Approach | Validated C-index* | Interpretation |
 |---|---:|---|
@@ -123,7 +123,7 @@ The full model is fractionally more discriminating, but the gain is too small to
 
 ### 4. Prioritizing 30% of drivers covers approximately half of observed inactivity events
 
-![Capacity curve](images/chart4.png)
+![Capacity curve](chart4.png)
 
 | Share of drivers prioritized | Share of observed events covered |
 |---:|---:|
@@ -177,7 +177,7 @@ This is a temporary prioritization heuristic. It is not evidence for expensive i
 
 ### The broad 1-7-day screen separates risk in every onboarding cohort
 
-![Risk separation across onboarding cohorts](images/chart5.png)
+![Risk separation across onboarding cohorts](chart5.png)
 
 This chart validates the broader activity screen, not the narrower 4-7-day confirmatory pilot population.
 
