@@ -29,10 +29,10 @@ The honest boundary: this data has no record of anyone actually being contacted,
 Tracking each driver from their 14th day, the chart below shows how quickly different groups hit a first **21-day stretch with no rides**. Drivers active on only a few of their first 14 days climb fastest.
  
 ![Inactivity curves by early-activity group](chart2.png)
-*The fewer days a driver was active early on, the sooner and more often they later go quiet. "Going quiet" is a re-engagement signal, not confirmed churn — about a third of these drivers come back on their own.*
+*The fewer days a driver was active early on, the sooner and more often they later go quiet. "Going quiet" is a re-engagement signal, not confirmed churn - about a third of these drivers come back on their own.*
  
 **2. Early activity is a strong, simple risk flag.**
-Grouping drivers by how many of their first 14 days they were active, the chance of going quiet within the next month drops sharply — from 34% for the least active to just 2% for the most consistent.
+Grouping drivers by how many of their first 14 days they were active, the chance of going quiet within the next month drops sharply - from 34% for the least active to just 2% for the most consistent.
  
 ![Near-term inactivity by early-activity group](chart1.png)
 *Risk of going quiet within 28 days, by how many days a driver was active in their first two weeks.*
@@ -44,7 +44,7 @@ Drivers active on **7 or fewer** of their first 14 days are 44% of drivers but a
 *In all seven weekly onboarding groups, the "7-or-fewer-active-days" group is far more likely to go quiet than everyone else.*
  
 **4. A simple rule works as well as a complex model.**
-We compared four approaches. A simple two-signal rule scores essentially the same as an 11-variable model. Adding nine more variables improves accuracy by a negligible 0.003 and isn't even consistent across groups — so the complexity isn't worth it.
+We compared four approaches. A simple two-signal rule scores essentially the same as an 11-variable model. Adding nine more variables improves accuracy by a negligible 0.003 and isn't even consistent across groups - so the complexity isn't worth it.
  
 ![Model comparison](chart3.png)
 *Higher is better (0.50 = a coin flip, so ~0.71–0.73 means the rule correctly ranks who's more at risk roughly 71–73% of the time). The simple two-signal model is the sensible choice.*
@@ -60,7 +60,7 @@ One honest caveat: 0.71 is a *useful* flag, not a crystal ball. It points to the
 - **Start with the 4–7-active-day group.** It's the sweet spot: enough drivers who go quiet to measure a real effect, and drivers who've shown genuine early engagement (so they're worth keeping).
 - **What we'd measure:** the difference in how many go quiet within 28 days, outreach group vs control.
 - **Sort drivers by how long they've been idle** (under 3 / 3–7 / 7–14 days) so we can see if the very-idle respond differently.
-- **Also include smaller test groups from the other activity levels.** Without an outreach-vs-control comparison *outside* the main group, we can't tell whether focusing on a group is actually better than contacting everyone — that's the whole question.
+- **Also include smaller test groups from the other activity levels.** Without an outreach-vs-control comparison *outside* the main group, we can't tell whether focusing on a group is actually better than contacting everyone - that's the whole question.
 **The capacity view (how to spend limited outreach):** if Lyft can only reach a slice of drivers, focusing on the riskiest 30% covers about half of all the drivers who go quiet.
  
 ![Capacity curve](chart4.png)
