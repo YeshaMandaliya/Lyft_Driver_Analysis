@@ -91,11 +91,11 @@ The driver's current inactivity gap at day 14 is a valid predictor because it is
 
 ### 1. Lower early activity is associated with faster and more frequent inactivity
 
-![Inactivity curves by early-activity group](images/chart2.png)
+![Inactivity curves by early-activity group](chart2.png)
 
 ### 2. Near-term inactivity falls from 34% to 2% as early activity becomes consistent
 
-![Near-term inactivity by early-activity group](images/chart1.png)
+![Near-term inactivity by early-activity group](chart1.png)
 
 | First-14-day activity | Drivers | Share of observed inactivity events | 28-day inactivity probability |
 |---|---:|---:|---:|
