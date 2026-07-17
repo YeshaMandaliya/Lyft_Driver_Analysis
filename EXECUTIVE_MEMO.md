@@ -9,9 +9,9 @@
  
 ## Bottom line
  
-Lyft should run a **small, controlled test (a pilot)** of early retention outreach, starting with drivers who were **active on 4–7 of their first 14 days** — about a third of new drivers, but nearly half of everyone who later goes quiet. Lyft should **not** roll out a company-wide targeting program yet. The data reliably tells us *who is at risk of going quiet*; only a controlled test can tell us *whether outreach actually changes their behavior* — and *whether focusing on a group beats simply contacting everyone*.
+Lyft should run a **small, controlled test (a pilot)** of early retention outreach, starting with drivers who were **active on 4–7 of their first 14 days** - about a third of new drivers, but nearly half of everyone who later goes quiet. Lyft should **not** roll out a company-wide targeting program yet. The data reliably tells us *who is at risk of going quiet*; only a controlled test can tell us *whether outreach actually changes their behavior* — and *whether focusing on a group beats simply contacting everyone*.
  
-The good news for execution: two simple signals — **how many days a driver was active in their first two weeks**, and **how long they've been idle by day 14** — predict future inactivity just as well as a complex 11-variable model. So the recommendation is a simple, explainable rule plus a clean experiment, not a black box.
+The good news for execution: two simple signals - **how many days a driver was active in their first two weeks**, and **how long they've been idle by day 14** — predict future inactivity just as well as a complex 11-variable model. So the recommendation is a simple, explainable rule plus a clean experiment, not a black box.
  
 ---
  
