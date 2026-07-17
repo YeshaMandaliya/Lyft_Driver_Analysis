@@ -1,163 +1,214 @@
 # Early Driver Disengagement: Designing a Risk-Based Retention Experiment
 
-*A case study on the 2016 Lyft (San Francisco) driver dataset - framed and executed as a business decision, not just a modeling exercise.*
+*A case study using the 2016 Lyft San Francisco driver dataset, framed and executed as a business decision rather than only a modeling exercise.*
 
 ---
 
 ## TL;DR
 
-By a driver's **14th day**, two simple signals — **how many days they were active in their first two weeks** and **how long they've been idle** — flag a stable group of drivers who account for most future "going quiet." A simple two-signal rule matches a complex 11-variable model, so the right answer is **a simple, explainable rule plus a controlled test — not a black box.**
+By a driver's 14th day, two simple signals can identify elevated risk of future inactivity:
 
-The deliverable is a **test (pilot) design** plus a **capacity view** for spending limited outreach — not a churn score, and not a made-up ROI number.
+1. How many days the driver was active during the first two weeks
+2. How long the driver has already been idle
 
-> **Headline:** Drivers active on **4–7 of their first 14 days** are ~⅓ of new drivers but ~½ of everyone who later goes quiet — an efficient group to test retention outreach on.
+A transparent two-signal approach performs almost as well as an 11-variable model. The practical answer is a simple, explainable risk screen followed by a controlled test, not a black-box model.
+
+The deliverable is a pilot design and a capacity view for allocating limited outreach. It is not a churn score, and it does not manufacture an ROI estimate.
+
+> **Headline:** Drivers active on 4-7 of their first 14 days represent about one-third of eligible drivers but nearly half of all subsequently observed inactivity events. This makes them an efficient population in which to test retention outreach.
 
 ---
 
 ## The question
 
-Reaching out to new drivers costs time and money, so Lyft can't treat everyone the same. The question:
+Reaching out to new drivers costs time and money, so Lyft needs a disciplined way to focus limited attention.
 
-> **Can a driver's first two weeks of activity flag who is likely to go quiet — early enough, and clearly enough — to focus retention attention, and what should Lyft do about it?**
+> **Can a driver's first two weeks of activity identify who is likely to go quiet, early enough and clearly enough to support a retention experiment?**
 
-This is framed as a **focus-and-learn decision**, not a prediction contest. The distinction is the whole point: risk tells you *who might drift away*; only a controlled test tells you *who Lyft should actually prioritize*.
+This is a focus-and-learn decision, not a prediction contest.
 
----
-
-## Why this framing (not "driver lifetime value")
-
-This is the well-known Lyft driver dataset, usually used for a lifetime-value analysis. This project reframes it as an **early-retention / marketplace-supply** problem and — importantly — stays strict about what observational data can and can't prove. The payoff is a defensible experiment design, which reads as more operationally mature than a churn dashboard.
+Risk indicates who may become inactive. Only a controlled experiment can establish who responds to outreach and whether targeted outreach is better than a broader approach.
 
 ---
 
-## Data & audit (trust earned, not assumed)
+## Why this framing, rather than driver lifetime value
 
-| File | What it is | Rows |
-|---|---|---|
-| `driver_ids.csv` | one row per driver (onboarding date) | 937 |
-| `ride_ids.csv` | one row per completed ride (distance, duration, prime-time) | 193,502 |
-| `ride_timestamps.csv` | one row per ride step (requested → dropped off) | 970,405 |
+The Lyft driver dataset is commonly used for a lifetime-value analysis. This project reframes it as an early-retention and marketplace-supply problem.
 
-- **The biggest weakness is the joins, not missing values.** Only 854 of 937 drivers appear in both the onboarding and ride files (a matching 83/83 gap, plus ~4.5% slippage at the ride level). A careless merge would silently drop ~100 drivers and never mention it.
-- **Trusted group: 837 drivers** with complete, linkable histories. The 83 onboarding-only IDs are **not** labeled "never drove" — their cause is unresolved, so they're set aside, not mislabeled.
-- **`ride_duration` checks out exactly** against the pickup→dropoff times, so estimated ride value sits on a verified input.
-- **Clock: UTC.** Reading the dates as San Francisco local time creates 177 impossible "rides before onboarding," so UTC is the consistent choice (local time kept only as a sensitivity check).
-- **Selection effect documented, not hidden:** completeness drops across later onboarding groups and excluded drivers tend to be lower-volume — so the real risk is likely *higher* than modeled, and all claims are scoped to fully-linkable drivers, not all 937.
+The analysis remains strict about what observational data can and cannot prove. The outcome is a defensible experiment design rather than a churn dashboard or a speculative driver-value calculation.
 
 ---
 
-## Approach — a disciplined route from a fuzzy question to a defensible decision
+## Data and audit: trust earned, not assumed
 
-1. **Frame the decision** — owned by Driver Ops; explicit "can say / can't say" list.
-2. **Structure** — decision gates (trust the data → is it material → is there an early signal → does it beat a one-line rule → is risk concentrated → is it stable).
-3. **Establish honest data** — the audit above; a clean, leak-free outcome definition.
-4. **Analyze** — inactivity curves for timing, a simple rule as the benchmark, a complex model as the challenger.
-5. **Find the "so what"** — a stratified pilot design and a capacity view.
-6. **Communicate** — this README and the [executive memo](EXECUTIVE_MEMO.md).
+| File | Description | Rows |
+|---|---|---:|
+| `driver_ids.csv` | One row per driver, including onboarding date | 937 |
+| `ride_ids.csv` | One row per completed ride, including distance, duration, and prime time | 193,502 |
+| `ride_timestamps.csv` | One row per ride step, from request through drop-off | 970,405 |
 
-**Outcome:** a driver's first stretch of **21 straight days with no rides** after day 14. Deliberately **not** called churn — about a third of these drivers return within three weeks. Thresholds of 14/21/28 days are treated as *different business outcomes* (a break vs a real stop), not interchangeable settings.
+Key audit findings:
 
-**No-leakage rule:** every signal uses only what's known *before* day 14; the current idle streak at day 14 is fair game; the "event" is the moment the 21-day streak completes, never worked out backward from a driver's last-ever ride.
+- **The largest weakness is join integrity, not missing values.** Only 854 of 937 driver IDs overlap between the onboarding and ride-detail files. There are 83 IDs unique to each file, plus approximately 4.5% two-sided slippage at the ride level.
+- **The timeline-usable population contains 837 drivers.** Of these, 834 are eligible at the day-14 landmark because they have at least one timestamped ride before the prediction point.
+- **The 83 onboarding-only IDs are not labeled as drivers who never activated.** Their provenance is unresolved, so they are treated as a data-quality limitation rather than automatically classified as disengaged.
+- **Ride duration reconciles exactly.** For every matched ride, the recorded duration equals the difference between pickup and drop-off timestamps.
+- **UTC is the primary clock.** Interpreting onboarding as San Francisco midnight creates 177 rides across 66 drivers that appear to occur before onboarding. UTC produces zero such contradictions.
+- **Population loss is not random.** Completeness declines across later onboarding cohorts, and the 17 matched drivers without usable timestamps have lower ride volume. Results are therefore scoped to fully linkable drivers. The direction of any remaining selection bias is unknown.
+
+---
+
+## Approach: from a fuzzy question to a defensible decision
+
+1. **Frame the decision:** define the owner, business choice, permitted claims, and prohibited claims.
+2. **Structure the problem:** establish sequential decision gates covering data trust, materiality, early signal, model complexity, concentration, stability, and actionability.
+3. **Establish honest data:** audit joins, timestamps, anomalies, follow-up, and the analytical population.
+4. **Analyze:** compare early activity signals, survival timing, a simple benchmark, and a more complex challenger.
+5. **Find the business consequence:** identify an experiment population, quantify capacity trade-offs, and define what a pilot must prove.
+6. **Communicate:** summarize the decision in this README and the [executive memo](EXECUTIVE_MEMO.md).
+
+### Outcome definition
+
+The primary outcome is the first time a driver reaches 21 consecutive days without a ride after the day-14 landmark.
+
+It is deliberately not called churn. Approximately 35% of drivers who reach the 21-day inactivity threshold are subsequently observed returning within another three weeks.
+
+Thresholds of 14, 21, and 28 days are treated as different business outcomes:
+
+- 14 days captures more temporary breaks
+- 21 days is the primary prolonged-inactivity definition
+- 28 days represents more severe inactivity
+
+### No-leakage rule
+
+Every targeting signal uses only information available before the day-14 landmark.
+
+The driver's current inactivity gap at day 14 is a valid predictor because it is known at the decision point. The event occurs when the 21-day threshold is crossed; it is never calculated backward from the driver's last observed ride.
 
 ---
 
 ## Key results
 
-**Slow starters go quiet sooner and more often.**
+### 1. Lower early activity is associated with faster and more frequent inactivity
 
-![Inactivity curves by early-activity group](images/inactivity_curves.png)
+![Inactivity curves by early-activity group](images/chart2.png)
 
-**Early activity is a strong, simple risk flag — near-term inactivity falls from 34% to 2%.**
+### 2. Near-term inactivity falls from 34% to 2% as early activity becomes consistent
 
-![Near-term inactivity by early-activity group](images/risk_by_segment.png)
+![Near-term inactivity by early-activity group](images/chart1.png)
 
-| First-14-day activity | Drivers | Share of "goes quiet" events | Chance of going quiet within 28 days |
-|---|---|---|---|
-| 1–3 active days | 100 | 21% | 34.0% |
-| **4–7 active days** | **269** | **49%** | **26.0%** |
-| 8–10 active days | 209 | 19% | 13.9% |
-| 11–14 active days | 256 | 12% | 2.3% |
+| First-14-day activity | Drivers | Share of observed inactivity events | 28-day inactivity probability |
+|---|---:|---:|---:|
+| 1-3 active days | 100 | 21% | 34.0% |
+| **4-7 active days** | **269** | **49%** | **26.0%** |
+| 8-10 active days | 209 | 19% | 13.9% |
+| 11-14 active days | 256 | 12% | 2.3% |
 
-**The flag is dependable — it separates risk in every weekly onboarding group.**
+The 4-7-day segment combines elevated risk with evidence of meaningful initial participation. The 1-3-day segment has higher risk but represents substantially less observed early ride activity.
 
-![Risk separation across onboarding groups](images/cohort_stability.png)
+### 3. Nine additional variables add only 0.003 discrimination
 
-**A simple rule matches a complex model — so keep it simple.**
+![Model comparison](images/chart3.png)
 
-![Model comparison](images/model_comparison.png)
+| Approach | Validated C-index* | Interpretation |
+|---|---:|---|
+| Active-day rule, 1 signal | 0.712 | Strong standalone signal |
+| Current-gap rule, 1 signal | 0.708 | Strong secondary signal |
+| Two-signal model | 0.732 | Best practical balance |
+| 11-variable model | 0.735 | Rejected; 0.003 does not justify nine additional inputs |
 
-| Model | Accuracy score* | Verdict |
-|---|---|---|
-| Active-day rule (1 signal) | 0.712 | Strong on its own |
-| Idle-streak rule (1 signal) | 0.708 | Strong on its own |
-| Two-signal model | 0.732 | Best practical choice |
-| 11-variable model | 0.735 | **Rejected** — +0.003 only, and unstable |
+*\*A C-index of 0.50 represents random ranking. Among comparable driver pairs, a C-index of approximately 0.71-0.73 means the approach correctly orders which driver becomes inactive sooner about 71%-73% of the time. It measures ranking, not calibrated individual probability.*
 
-*\*0.50 = a coin flip; ~0.71–0.73 means the rule ranks who's more at risk correctly ~71–73% of the time. Useful for focus, not a precise per-driver prediction.*
+The full model is fractionally more discriminating, but the gain is too small to justify the additional complexity. The operational recommendation is to use activity tiers first and current inactivity gap as a within-tier prioritization signal.
 
-**Focusing on the riskiest 30% of drivers covers about half of all inactivity.**
+### 4. Prioritizing 30% of drivers covers approximately half of observed inactivity events
 
-![Capacity curve](images/capacity_curve.png)
+![Capacity curve](images/chart4.png)
 
-| If Lyft can reach... | ...it covers this share of drivers who go quiet |
-|---|---|
-| Top 10% | 18.7% |
-| Top 20% | 34.9% |
-| Top 30% | 51.4% |
-| Top 40% | 64.1% |
-| Top 50% | 75.4% |
+| Share of drivers prioritized | Share of observed events covered |
+|---:|---:|
+| 10% | 18.7% |
+| 20% | 34.9% |
+| 30% | 51.4% |
+| 40% | 64.1% |
+| 50% | 75.4% |
+
+This is a capacity curve, not an optimized cutoff. Selecting a final outreach level requires intervention cost, operational capacity, treatment responsiveness, and the value of incremental activity.
+
+The same risk-ranked 30% represents only approximately 11% of early rides. This is the central business tension: concentrated risk does not automatically imply concentrated value or responsiveness.
 
 ---
 
 ## Recommendation
 
-Run a **controlled test** (outreach vs. do-nothing-different), split at day 14:
+Run a controlled outreach experiment at the day-14 landmark.
 
-- **Start with the 4–7-active-day group** — common enough to measure a real effect, and engaged enough to be worth keeping.
-- **Measure:** the difference in how many go quiet within 28 days, outreach vs. control.
-- **Sort by current idle streak** (under 3 / 3–7 / 7–14 days).
-- **Include smaller test groups from other activity levels** — otherwise you can't tell whether *focusing* beats *contacting everyone*.
+### Primary confirmatory population
 
-**Interim (low-cost only):** cheap, reversible outreach can start with the 4–7-day drivers already idle 3+ days by day 14 (~39% go quiet) — as a temporary rule of thumb, not a reason to spend on incentives.
+Start with drivers active on 4-7 of their first 14 UTC tenure days.
+
+Historically, this population:
+
+- Represents 32.3% of eligible drivers
+- Contains 48.9% of all subsequently observed inactivity events
+- Represents 17.8% of early rides
+- Has a 26.0% probability of crossing the inactivity threshold within the following 28 days
+
+### Experiment structure
+
+- Randomize eligible drivers 1:1 between standardized outreach and business as usual.
+- Use a fixed 28-day primary measurement window after the day-14 landmark.
+- Measure the intention-to-treat difference in 21-day inactivity crossings.
+- Stratify randomization by current inactivity gap: under 3 days, 3-7 days, and 7-14 days.
+- Include smaller randomized samples from other activity levels. Without comparison strata, the experiment cannot determine whether risk-based prioritization is better than broader outreach.
+- Track secondary outcomes such as active days, completed rides, treatment delivery, opt-outs, complaints, and outreach cost.
+
+### Interim rule, low-cost use only
+
+If low-cost, reversible outreach must begin before pilot results are available, prioritize drivers in the 4-7-day segment who have already been idle for at least 3 days at the day-14 landmark.
+
+Historically, approximately 39% of this priority group crosses the inactivity threshold within the following 28 days.
+
+This is a temporary prioritization heuristic. It is not evidence for expensive incentives or automatic treatment allocation.
 
 ---
 
-## What this project does *not* claim
+## Technical validation
 
-This is observational, single-group, 2016 data. It supports *spotting* risk only. It does **not** show that outreach prevents inactivity, saves rides, or pays off; that high-risk drivers are the most *reachable*; that focusing beats contacting everyone; that incentives are justified; or that any of this applies to Lyft today. "Going quiet" is a re-engagement signal, not confirmed churn (~35% come back within three weeks).
+### The broad 1-7-day screen separates risk in every onboarding cohort
+
+![Risk separation across onboarding cohorts](images/chart5.png)
+
+This chart validates the broader activity screen, not the narrower 4-7-day confirmatory pilot population.
+
+Within every onboarding cohort, drivers active on no more than 7 of their first 14 tenure days have a higher observed event proportion than drivers active on more than 7 days.
+
+Later cohorts have fewer observed events and shorter follow-up. Absolute event rates should therefore not be compared directly across cohorts.
 
 ---
 
-## Reproduce
+## What this project does not claim
+
+This is observational, single-cohort, 2016 data. It supports identifying elevated risk and designing an experiment.
+
+It does not establish that:
+
+- Outreach prevents inactivity
+- Outreach saves rides or generates ROI
+- High-risk drivers are the most responsive or reachable
+- Risk-based prioritization is superior to uniform outreach
+- Incentives are justified
+- The findings apply to Lyft's current marketplace
+
+Going quiet is treated as a re-engagement signal, not confirmed churn.
+
+---
+
+## Reproduce the analysis
 
 ```bash
 git clone <this-repo>
 cd <this-repo>
 pip install -r requirements.txt
-# open the notebook and Run All (top to bottom)
-```
 
-The notebook uses UTC as the primary clock; timezone, data-anomaly, and threshold-sensitivity checks are in a clearly labeled appendix. A random seed is set for reproducibility.
-
-```
-├── data/                          # raw challenge CSVs (or a source note)
-├── images/                        # charts used in this README + the memo
-│   ├── inactivity_curves.png
-│   ├── risk_by_segment.png
-│   ├── cohort_stability.png
-│   ├── model_comparison.png
-│   └── capacity_curve.png
-├── notebooks/
-│   └── driver_disengagement.ipynb
-├── EXECUTIVE_MEMO.md
-├── requirements.txt
-└── README.md
-```
-
-## Methods & tools
-
-Python · pandas · NumPy · lifelines (Kaplan–Meier, Cox proportional hazards) · matplotlib. Survival analysis with right-censoring; leave-one-cohort-out validation; two-proportion power calculations for pilot sizing.
-
----
-
-*Data: 2016 Lyft Driver Data Challenge (San Francisco). A historical portfolio case study — not affiliated with or endorsed by Lyft, and not a recommendation for current operations.*
+# Open the notebook and run all cells from top to bottom
