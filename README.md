@@ -4,7 +4,7 @@
 
 ---
 
-## TL;DR
+## Executive Summary
 
 By a driver's 14th day, two simple signals can identify elevated risk of future inactivity:
 
