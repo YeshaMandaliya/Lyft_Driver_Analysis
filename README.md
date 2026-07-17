@@ -1,6 +1,6 @@
 # Early Driver Disengagement: Designing a Risk-Based Retention Experiment
 
-*A case study on the 2016 Lyft (San Francisco) driver dataset — framed and executed as a business decision, not just a modeling exercise.*
+*A case study on the 2016 Lyft (San Francisco) driver dataset - framed and executed as a business decision, not just a modeling exercise.*
 
 ---
 
