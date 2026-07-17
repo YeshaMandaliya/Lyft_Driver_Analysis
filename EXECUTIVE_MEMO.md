@@ -40,7 +40,7 @@ Grouping drivers by how many of their first 14 days they were active, the chance
 **3. This risk flag is concentrated and dependable.**
 Drivers active on **7 or fewer** of their first 14 days are 44% of drivers but account for **70%** of everyone who goes quiet. That gap holds in every weekly group of new drivers we looked at — the at-risk group is consistently 2–6× more likely to go quiet.
  
-![Risk separation across onboarding groups](images/cohort_stability.png)
+![Risk separation across onboarding groups](chart5.png)
 *In all seven weekly onboarding groups, the "7-or-fewer-active-days" group is far more likely to go quiet than everyone else.*
  
 **4. A simple rule works as well as a complex model.**
